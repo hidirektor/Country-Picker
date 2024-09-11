@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("maven-publish")
 }
 
 android {
@@ -26,6 +27,20 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            afterEvaluate {
+                from(components["release"]) // Release bileşenini yayınla
+            }
+
+            groupId = "me.t3sl4"
+            artifactId = "countrypicker"
+            version = "1.0.0"
+        }
     }
 }
 
